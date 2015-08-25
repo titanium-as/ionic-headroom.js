@@ -1,3 +1,9 @@
+/*!
+ * headroom.js v0.7.0 - Give your page some headroom. Hide your header until you need it
+ * Copyright (c) 2014 Nick Williams - http://wicky.nillia.ms/headroom.js
+ * License: MIT
+ */
+
 (function(angular) {
 
   if(!angular) {
@@ -8,7 +14,7 @@
   // Directive //
   ///////////////
 
-  angular.module('headroom', []).directive('headroom', function() {
+  angular.module('headroom', ['ionic']).directive('headroom', function($ionicScrollDelegate) {
     return {
       restrict: 'EA',
       scope: {
@@ -25,9 +31,10 @@
         if (options.scroller) {
           options.scroller = angular.element(options.scroller)[0];
         }
+        options.$ionicScrollDelegate = $ionicScrollDelegate;
         var headroom = new Headroom(element[0], options);
         headroom.init();
-        scope.$on('$destroy', function() {
+        scope.$on('destroy', function() {
           headroom.destroy();
         });
       }
